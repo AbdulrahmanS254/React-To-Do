@@ -1,0 +1,132 @@
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 400px;
+    background: #1D1825;
+    border-radius: 20px;
+    padding: 50px 65px;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+#task-input {
+    background: transparent;
+    color: #999999;
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid #9E78CF;
+    flex-grow: 1;
+}
+
+#task-input::placeholder {
+    color: #777;
+    font-size: 16px;
+}
+
+#add-task {
+    border-radius: 10px;
+    background: #9E78CF;
+    border: 1px solid #9E78CF;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+#add-task:hover {
+    opacity: 0.9;
+}
+
+p {
+    text-align: left;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #f0f0f0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #2a2333;
+    padding: 20px 20px;
+    border-radius: 10px;
+}
+
+li span {
+    color: #f0f0f0;
+    font-size: 16px;
+    word-break: break-all;
+    padding-right: 10px;
+}
+
+.btns {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.btns button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.check {
+    color: #d0d0d0;
+}
+.check:hover {
+    background-color: #2f4e30;
+}
+
+.delete {
+    color: #F44336;
+}
+.delete:hover {
+    background-color: #5c3532;
+}
+
+li.completed span {
+    text-decoration: line-through;
+    color: #888;
+}
+
+li.completed .check {
+    color: #f0f0f0;
+    background-color: #4CAF50;
+}
+li.completed .check:hover {
+    background-color: #385b3a;
+}

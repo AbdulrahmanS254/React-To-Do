@@ -2,7 +2,7 @@
 
 This is a feature-rich to-do list application built with React. It was built as the first project in my intensive React learning plan, focusing on moving from basic concepts to a fully functional, interactive, and persistent application.
 
-![App Screenshot](screencapture.png)
+![App Screenshot](screen-capture.png)
 
 ## ✨ Features
 

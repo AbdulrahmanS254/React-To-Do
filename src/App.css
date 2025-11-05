@@ -1,23 +1,36 @@
+/* --- Global & Root --- */
 #root {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem;
     text-align: center;
+    width: 100%;
 }
 
 body {
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
+    background-color: #121017; 
 }
 
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Container --- */
 .container {
-    width: 400px;
-    background: #1D1825;
+    width: 100%;
+    max-width: 600px;
+    background: transparent;
     border-radius: 20px;
     padding: 50px 65px;
+    box-sizing: border-box;
 }
 
+/* --- Form Elements --- */
 form {
     width: 100%;
     display: flex;
@@ -30,8 +43,9 @@ form {
     padding: 10px 15px;
     font-size: 16px;
     border-radius: 10px;
-    border: 1px solid #9E78CF;
+    border: 1px solid #3E1671;
     flex-grow: 1;
+    outline: none;
 }
 
 #task-input::placeholder {
@@ -49,12 +63,14 @@ form {
     font-size: 16px;
     transition: all 0.3s ease;
     flex-shrink: 0;
+    color: #fff;
 }
 
 #add-task:hover {
     opacity: 0.9;
 }
 
+/* --- Task List --- */
 p {
     text-align: left;
     margin-top: 50px;
@@ -72,20 +88,23 @@ ul {
     gap: 15px;
 }
 
+/* --- Task Item --- */
 li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #2a2333;
-    padding: 20px 20px;
+    background: #15101C;
+    padding: 25px 20px;
     border-radius: 10px;
 }
 
 li span {
-    color: #f0f0f0;
+    color: #9E78CF;
     font-size: 16px;
     word-break: break-all;
     padding-right: 10px;
+    text-align: left;
+    flex-grow: 1;
 }
 
 .btns {
@@ -105,19 +124,19 @@ li span {
 }
 
 .check {
-    color: #d0d0d0;
-}
-.check:hover {
-    background-color: #2f4e30;
+    color: #9E78CF;
 }
 
 .delete {
-    color: #F44336;
-}
-.delete:hover {
-    background-color: #5c3532;
+    color: #3E1671;
 }
 
+.check:hover,
+.delete:hover {
+    background-color: #261d34;
+}
+
+/* --- Completed State --- */
 li.completed span {
     text-decoration: line-through;
     color: #888;
@@ -127,6 +146,34 @@ li.completed .check {
     color: #f0f0f0;
     background-color: #4CAF50;
 }
+
 li.completed .check:hover {
     background-color: #385b3a;
+}
+
+/* ===============================
+    RESPONSIVE MEDIA QUERY
+===============================
+*/
+@media(max-width: 600px) {
+    
+    /* On mobile, align content to the top */
+    body {
+        align-items: flex-start;
+    }
+
+    /* Reduce the container's padding */
+    .container {
+        padding: 40px 25px; /* Less padding on sides */
+    }
+
+    /* Reduce the task item padding */
+    li {
+        padding: 20px 15px;
+    }
+
+    /* Reduce the top margin for the "Tasks:" text */
+    p {
+        margin-top: 30px;
+    }
 }

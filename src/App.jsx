@@ -2,21 +2,19 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
+import { DndContext, closestCenter, closestCorners } from "@dnd-kit/core";
+import { arrayMove } from "@dnd-kit/sortable";
 import "./App.css";
 
 function App() {
-    const [tasks, setTasks] = useState([
-        {
-            task: "Task 1 trial",
-            id: 1,
-            completed: false,
-        },
-        {
-            task: "Task 1 trial",
-            id: 2,
-            completed: true,
-        },
-    ]);
+    const [tasks, setTasks] = useState(() => {
+        const savedTasks = localStorage.getItem("tasks");
+        return savedTasks ? JSON.parse(savedTasks) : [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }, [tasks]);
 
     const handleAddTask = (taskName) => {
         const newTask = {
@@ -35,26 +33,60 @@ function App() {
     const handleCompleteTask = (taskId) => {
         setTasks(
             tasks.map((task) =>
-                task.id === taskId ? { ...task, completed: !task.completed } : task
+                task.id === taskId
+                    ? { ...task, completed: !task.completed }
+                    : task
             )
         );
     };
 
-    const pendingTasks = tasks.filter(task => !task.completed)
-    const completedTasks = tasks.filter(task => task.completed)
+    const pendingTasks = tasks.filter((task) => !task.completed);
+    const completedTasks = tasks.filter((task) => task.completed);
+
+    function handleDragEnd(event) {
+        const { active, over } = event;
+
+        if (over && active.id !== over.id) {
+            setTasks((currentTasks) => {
+                const oldIndex = currentTasks.findIndex(
+                    (task) => task.id === active.id
+                );
+                const newIndex = currentTasks.findIndex(
+                    (task) => task.id === over.id
+                );
+
+                return arrayMove(currentTasks, oldIndex, newIndex);
+            });
+        }
+    }
 
     return (
         <>
             <Header />
-            <div className="container">
-                <TaskForm onTaskSubmit={handleAddTask} />
+            <main>
+                <div className="container">
+                    <TaskForm onTaskSubmit={handleAddTask} />
 
-                <p>Tasks:</p>
-                <TaskList tasks={pendingTasks} onDelete={handleDeleteTask} onCheck={handleCompleteTask} />
+                    <DndContext
+                        collisionDetection={closestCenter}
+                        onDragEnd={handleDragEnd}
+                    >
+                        <p>Tasks:</p>
+                        <TaskList
+                            tasks={pendingTasks}
+                            onDelete={handleDeleteTask}
+                            onCheck={handleCompleteTask}
+                        />
 
-                <p>Done:</p>
-                <TaskList tasks={completedTasks} onDelete={handleDeleteTask} onCheck={handleCompleteTask} />
-            </div>
+                        <p>Done:</p>
+                        <TaskList
+                            tasks={completedTasks}
+                            onDelete={handleDeleteTask}
+                            onCheck={handleCompleteTask}
+                        />
+                    </DndContext>
+                </div>
+            </main>
         </>
     );
 }
